@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nossa Lembrança de Namoro</title>
+    <style>
+        /* Estilos Gerais do Corpo */
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f2f5; /* Cor de fundo suave */
+            margin: 0;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow: hidden; /* Garante que os corações não criem barra de rolagem desnecessária */
+            position: relative; /* Essencial para os corações flutuantes */
+            background-image: linear-gradient(to bottom right, #ffebee, #ffcdd2); /* Gradiente suave de fundo */
+        }
+
+        /* Estilos do Container Principal (Contador) */
+        .container {
+            background-color: rgba(255, 255, 255, 0.9); /* Fundo branco semi-transparente para o texto */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra mais destacada */
+            margin-bottom: 30px;
+            max-width: 90%;
+            width: 100%;
+            box-sizing: border-box;
+            z-index: 10; /* Garante que o conteúdo fique acima dos corações */
+            position: relative; /* Garante que o z-index funcione */
+        }
+        h1 {
+            color: #d81b60; /* Rosa mais vibrante */
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* Leve sombra no título */
+        }
+        p {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            color: #555;
+        }
+        #contador {
+            font-size: 2.2em; /* Um pouco maior */
+            font-weight: bold;
+            color: #4CAF50;
+            letter-spacing: 1px; /* Espaçamento entre letras */
+        }
+
+        /* Estilos da Galeria de Fotos */
+        .galeria-fotos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px; /* Mais espaço entre as fotos */
+            padding: 25px;
+            background-color: rgba(255, 255, 255, 0.9); /* Fundo branco semi-transparente para a galeria */
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra mais destacada */
+            max-width: 90%;
+            width: 100%;
+            box-sizing: border-box;
+            z-index: 10; /* Garante que a galeria fique acima dos corações */
+            position: relative;
+        }
+        .galeria-fotos img {
+            width: 100%;
+            max-width: 300px;
+            height: 200px; /* Altura fixa para as imagens */
+            object-fit: cover; /* Garante que a imagem preencha sem distorcer, cortando se necessário */
+            border-radius: 10px; /* Bordas mais arredondadas */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Sombra mais suave */
+            transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out; /* Transição mais suave */
+            border: 3px solid #ffccbc; /* Borda sutil */
+        }
+        .galeria-fotos img:hover {
+            transform: scale(1.08) rotate(2deg); /* Aumenta e gira um pouco ao passar o mouse */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Sombra mais intensa no hover */
+        }
+
+        /* Animação dos Corações de Fundo */
+        .hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            pointer-events: none; /* Garante que os corações não interfiram com cliques */
+        }
+
+        .heart {
+            position: absolute;
+            background-color: #ff5252; /* Cor vermelha do coração */
+            transform: rotate(-45deg);
+            animation: float 10s linear infinite; /* Animação de flutuação */
+        }
+
+        .heart:before,
+        .heart:after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #ff5252;
+            border-radius: 50%;
+        }
+
+        .heart:before {
+            top: -50%;
+            left: 0;
+        }
+
+        .heart:after {
+            top: 0;
+            left: 50%;
+        }
+
+        /* Chaves da Animação (Flutuação) */
+        @keyframes float {
+            0% {
+                transform: translate(0, 100vh) rotate(-45deg);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(0, -20vh) rotate(135deg);
+                opacity: 0;
+            }
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .container, .galeria-fotos {
+                padding: 15px;
+                max-width: 95%;
+            }
+            #contador {
+                font-size: 1.8em;
+            }
+            .galeria-fotos img {
+                max-width: 200px;
+                height: 150px; /* Ajusta a altura da imagem para telas menores */
+            }
+        }
+        @media (max-width: 480px) {
+            #contador {
+                font-size: 1.4em;
+            }
+            .galeria-fotos img {
+                max-width: 100%;
+                height: 180px; /* Ajusta a altura da imagem para telas muito pequenas */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts"></div> <div class="container">
+        <h1>Nosso Amor Contado nos Mínimos Detalhes!</h1>
+        <p>Desde 12 de setembro de 2022, já estamos juntos há:</p>
+        <div id="contador"></div>
+    </div>
+
+    <div class="galeria-fotos">
+        <img src="images/foto1.jpeg" alt="Momento no mar">
+        <img src="images/foto2.jpeg" alt="Momento no frio">
+        <img src="images/foto3.jpeg" alt="Momento na praia">
+        </div>
+
+    <script>
+        // Data de início do namoro: 12 de setembro de 2022
+        const dataInicioNamoro = new Date('2022-09-12T00:00:00');
+
+        function atualizarContador() {
+            const agora = new Date();
+            const diferencaTempo = agora.getTime() - dataInicioNamoro.getTime(); // Diferença em milissegundos
+
+            // Cálculos para dias, horas, minutos e segundos
+            const segundosTotais = Math.floor(diferencaTempo / 1000);
+            const dias = Math.floor(segundosTotais / (60 * 60 * 24));
+            const horas = Math.floor((segundosTotais % (60 * 60 * 24)) / (60 * 60));
+            const minutos = Math.floor((segundosTotais % (60 * 60)) / 60);
+            const segundos = segundosTotais % 60;
+
+            // Formata a exibição do tempo
+            document.getElementById('contador').textContent =
+                `${dias} dias, ${horas} horas, ${minutos} minutos e ${segundos} segundos`;
+        }
+
+        // Função para criar corações aleatoriamente
+        function criarCoracoes() {
+            const heartsContainer = document.querySelector('.hearts');
+            const numHearts = 10; // Número de corações a serem criados
+
+            for (let i = 0; i < numHearts; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.style.left = `${Math.random() * 100}vw`; // Posição horizontal aleatória
+                heart.style.animationDuration = `${Math.random() * 5 + 5}s`; // Duração da animação aleatória (5 a 10s)
+                heart.style.animationDelay = `${Math.random() * 5}s`; // Atraso na animação aleatório
+                heart.style.width = `${Math.random() * 20 + 10}px`; // Tamanho aleatório (10 a 30px)
+                heart.style.height = heart.style.width; // Coração proporcional
+
+                heartsContainer.appendChild(heart);
+
+                // Remove o coração após a animação para não acumular elementos
+                heart.addEventListener('animationend', () => {
+                    heart.remove();
+                });
+            }
+        }
+
+        // Atualiza o contador imediatamente ao carregar a página
+        atualizarContador();
+
+        // Atualiza o contador a cada segundo
+        setInterval(atualizarContador, 1000);
+
+        // Cria novos corações a cada poucos segundos
+        setInterval(criarCoracoes, 1500); // Cria um novo lote de corações a cada 1.5 segundos
+
+        // Cria alguns corações inicialmente
+        criarCoracoes();
+    </script>
+</body>
+</html>
